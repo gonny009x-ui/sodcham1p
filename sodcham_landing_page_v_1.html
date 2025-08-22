@@ -1,0 +1,664 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>น้ำอ้อยคั้นสดแท้ 100% จากไร่สู่ขวด | สดฉ่ำ SODCHAM</title>
+  <meta name="description" content="SODCHAM สดฉ่ำ – น้ำอ้อยคั้นสดแท้ 100% จากไร่ครอบครัว จ.เลย สดทุกหยด ไม่แต่งกลิ่น ไม่แต่งสี คั้นวันต่อวัน สั่งเลย!" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect rx='12' ry='12' width='64' height='64' fill='%2329a36a'/%3E%3Cpath d='M24 10h16v6H24zM26 16h12v36a6 6 0 0 1-6 6 6 6 0 0 1-6-6z' fill='%23fff'/%3E%3C/svg%3E" />
+  
+  <!--
+    SODCHAM Landing Page (Single-file)
+    - แก้สีหลักได้ที่ :root ด้านล่าง
+    - แทนที่ลิงก์ไลน์/โทร/ฟอร์มที่ส่วน "ORDER & CONTACT"
+    - หากยังไม่ได้ผลิตจริง ให้เปิดโหมด Preorder-only (ตัวแปร PREORDER_ONLY = true)
+  -->
+
+  <style>
+    :root{
+      --green:#2ea96a; /* เขียวอ้อย */
+      --green-2:#1f8a55; /* เขียวเข้ม */
+      --cream:#fffdf8; /* ครีมอ่อน */
+      --ink:#0f1e14;   /* สีตัวอักษรเข้ม */
+      --muted:#5c6f62; /* เทาอมเขียว */
+      --accent:#ffd166; /* เหลืองอมส้มสำหรับไฮไลต์ */
+      --radius:16px;
+      --shadow:0 10px 30px rgba(16,50,32,.15);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,'Noto Sans Thai',sans-serif;color:var(--ink);background:linear-gradient(180deg,var(--cream),#fff)}
+    a{color:var(--green-2);text-decoration:none}
+    img{max-width:100%;display:block}
+    .container{width:min(1200px,92%);margin:0 auto}
+
+    /* Header */
+    header{position:sticky;top:0;z-index:50;background:#ffffffd9;backdrop-filter:saturate(160%) blur(10px);border-bottom:1px solid #e9f3ed}
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:12px 0}
+    .brand{display:flex;gap:10px;align-items:center;font-weight:800;font-size:20px}
+    .brand .logo{width:36px;height:36px;border-radius:10px;background:radial-gradient(circle at 30% 30%,#90e0a3,transparent 60%),var(--green);display:grid;place-items:center;box-shadow:var(--shadow)}
+    .brand .logo svg{width:22px;height:22px}
+    nav ul{display:flex;gap:20px;list-style:none;margin:0;padding:0}
+    .cta-primary{background:var(--green);color:#fff;padding:10px 16px;border-radius:12px;box-shadow:var(--shadow);border:0;font-weight:700;cursor:pointer}
+    .cta-primary:hover{filter:brightness(.95)}
+    .cta-secondary{background:#fff;border:1px solid #dfe9e3;color:var(--green-2);padding:10px 16px;border-radius:12px;font-weight:700;cursor:pointer}
+
+    /* Floating CTA (mobile) */
+    .floating-cta{position:fixed;z-index:60;left:0;right:0;bottom:16px;display:none;justify-content:center}
+    .floating-cta a{background:var(--green);color:#fff;padding:14px 22px;border-radius:999px;box-shadow:var(--shadow);font-weight:800}
+
+    /* Hero */
+    .hero{position:relative;overflow:hidden}
+    .hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:center;padding:38px 0}
+    .hero h1{font-size:clamp(28px,4vw,48px);line-height:1.1;margin:6px 0 10px}
+    .hero p.lead{font-size:clamp(16px,2.3vw,20px);color:var(--muted);margin:0 0 18px}
+    .badges{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+    .badge{background:#fff;border:1px solid #e4efe9;border-radius:999px;padding:8px 12px;font-size:14px;color:#305244}
+    .hero-visual{position:relative;aspect-ratio:1/1;max-width:520px;margin-inline:auto}
+    .drops{position:absolute;inset:0;background:radial-gradient(120% 100% at 0% 100%,#e9fff3 0%,transparent 60%),linear-gradient(180deg,#edfff6,transparent);border-radius:28px;border:1px solid #e6f2ec}
+    .hero-visual .bottle{position:absolute;inset:8% 18% 8% 18%;border-radius:24px;background:linear-gradient(180deg,#eafff0,#b7f1c9);box-shadow:0 20px 60px rgba(46,169,106,.25)}
+    .bottle:before{content:"";position:absolute;left:50%;transform:translateX(-50%);top:-8%;width:28%;height:10%;border-radius:8px;background:#d8efe3;border:1px solid #cfe9db}
+    .bottle:after{content:"SODCHAM";position:absolute;bottom:14%;left:50%;transform:translateX(-50%);font-weight:900;letter-spacing:.06em;color:#1d5b3a;background:#fff;border:2px solid #e1efe8;border-radius:8px;padding:6px 10px}
+    .mascot{position:absolute;right:-16px;bottom:-6px;width:140px;height:140px;border-radius:50%;background:radial-gradient(circle at 40% 30%,#b8f3c7,#79df9d);display:grid;place-items:center;border:3px solid #e4f4ea;box-shadow:var(--shadow)}
+    .mascot svg{width:80px;height:80px}
+
+    .hero-ctas{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:12px}
+
+    /* Section base */
+    section{padding:60px 0}
+    section h2{font-size:clamp(22px,3vw,32px);margin:0 0 10px}
+    section p.sub{color:var(--muted);margin:0 0 20px}
+
+    /* Value Props */
+    .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+    .card{background:#fff;border:1px solid #e6f2ec;border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+    .icon{width:34px;height:34px;border-radius:10px;background:#effaf3;display:grid;place-items:center;color:var(--green-2);margin-bottom:8px}
+
+    /* Products */
+    .product-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .product{background:#fff;border:1px solid #e6f2ec;border-radius:18px;overflow:hidden;display:flex;flex-direction:column;box-shadow:var(--shadow)}
+    .product .thumb{aspect-ratio:4/3;background:linear-gradient(180deg,#eafff0,#c9f1d8);display:grid;place-items:center}
+    .product .thumb svg{width:120px;height:120px}
+    .product .body{padding:16px;display:flex;flex-direction:column;gap:8px}
+    .price{font-weight:800}
+    .options{display:flex;gap:8px;flex-wrap:wrap}
+    .options select{padding:8px;border-radius:10px;border:1px solid #dfe9e3}
+    .product .actions{margin-top:auto;display:flex;gap:8px}
+    .btn{display:inline-flex;align-items:center;justify-content:center;padding:10px 14px;border-radius:12px;border:1px solid #dfe9e3;background:#fff;cursor:pointer;font-weight:700}
+    .btn.add{background:var(--green);color:#fff;border-color:transparent}
+    .note{font-size:12px;color:var(--muted);margin-top:6px}
+
+    /* Process */
+    .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+    .step{background:#fff;border:1px solid #e6f2ec;border-radius:16px;padding:16px;box-shadow:var(--shadow)}
+    .step .num{font-weight:900;color:var(--green-2);font-size:12px;background:#eef8f1;border-radius:999px;display:inline-block;padding:4px 8px;margin-bottom:8px}
+
+    /* Story */
+    .story{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:center}
+    .story .panel{background:linear-gradient(180deg,#f6fffa,#fff);border:1px solid #e6f2ec;border-radius:20px;min-height:220px;display:grid;place-items:center;position:relative;overflow:hidden;box-shadow:var(--shadow)}
+
+    /* Carousel */
+    .carousel{position:relative}
+    .carousel-track{display:flex;gap:14px;overflow:hidden;scroll-behavior:smooth}
+    .review{min-width:280px;max-width:320px;background:#fff;border:1px solid #e6f2ec;border-radius:16px;padding:16px;box-shadow:var(--shadow)}
+    .stars{color:#f5b100}
+
+    /* Promo */
+    .promo{display:grid;grid-template-columns:1.2fr .8fr;gap:16px;align-items:center}
+    .promo .panel{background:#fff;border:1px solid #e6f2ec;border-radius:18px;padding:18px;box-shadow:var(--shadow)}
+    .countdown{display:flex;gap:10px;margin-top:10px}
+    .cd-box{background:#f3fbf6;border:1px solid #e1efe8;border-radius:12px;min-width:64px;padding:10px;text-align:center}
+    .cd-box b{font-size:20px}
+
+    /* Use cases */
+    .usegrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+    .use{background:#fff;border:1px solid #e6f2ec;border-radius:16px;padding:18px;min-height:120px;box-shadow:var(--shadow)}
+
+    /* B2B */
+    .b2b{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    form .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    input, textarea{padding:10px;border-radius:12px;border:1px solid #dfe9e3;width:100%}
+    textarea{min-height:96px}
+
+    /* Order & Contact */
+    .order-actions{display:flex;gap:10px;flex-wrap:wrap}
+    .order-actions a{padding:12px 16px;border-radius:12px;font-weight:800;border:1px solid #e1efe8}
+    .order-actions a.primary{background:var(--green);color:#fff;border-color:transparent}
+    .order-actions a.line{background:#06c755;color:#fff;border-color:transparent}
+    .order-actions a.phone{background:#fff;color:var(--green-2)}
+    .map{aspect-ratio:16/9;border:0;width:100%;border-radius:16px;box-shadow:var(--shadow)}
+
+    /* FAQ */
+    details{background:#fff;border:1px solid #e6f2ec;border-radius:14px;padding:12px 14px}
+    details+details{margin-top:10px}
+    summary{cursor:pointer;font-weight:700}
+
+    /* Footer */
+    footer{background:#f5fbf7;border-top:1px solid #e6f2ec;padding:34px 0;margin-top:40px;color:#305244}
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .hero .wrap{grid-template-columns:1fr}
+      .cards{grid-template-columns:repeat(2,1fr)}
+      .product-grid{grid-template-columns:1fr 1fr}
+      .steps{grid-template-columns:repeat(2,1fr)}
+      .story{grid-template-columns:1fr}
+      .promo{grid-template-columns:1fr}
+      .usegrid{grid-template-columns:repeat(2,1fr)}
+      .b2b{grid-template-columns:1fr}
+      .floating-cta{display:flex}
+      nav ul{display:none}
+    }
+    @media (max-width: 560px){
+      .cards,.product-grid,.steps,.usegrid{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 2h8v4H8V2Z" fill="#fff"/><rect x="9" y="6" width="6" height="14" rx="3" fill="#fff"/></svg>
+        </div>
+        <span>สดฉ่ำ SODCHAM</span>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="#process">ขั้นตอนความสด</a></li>
+          <li><a href="#promo">โปรวันนี้</a></li>
+          <li><a href="#reviews">รีวิว</a></li>
+          <li><a href="#order">สั่งซื้อ</a></li>
+        </ul>
+      </nav>
+      <a class="cta-primary" href="#order" data-event="click_header_order">สั่งเลย</a>
+    </div>
+  </header>
+
+  <div class="floating-cta">
+    <a href="#order" data-event="click_float_order">สั่งเลย</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero" id="hero" aria-label="Hero">
+    <div class="container wrap">
+      <div>
+        <h1>จากไร่สู่ขวด สดแท้ทุกหยด</h1>
+        <p class="lead">ไม่สด ไม่บดให้ — หวานพอดี จากใจไร่เลย</p>
+        <div class="hero-ctas">
+          <a class="cta-primary" href="#order" data-event="click_hero_order">สั่งเลย</a>
+          <a class="cta-secondary" href="#process" data-event="click_hero_process">ดูขั้นตอนความสด</a>
+        </div>
+        <div class="badges" aria-label="คุณสมบัติเด่น">
+          <span class="badge">100% น้ำอ้อยคั้นสด</span>
+          <span class="badge">ไม่แต่งกลิ่น ไม่แต่งรส</span>
+          <span class="badge">คั้นวันต่อวัน</span>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="drops"></div>
+        <div class="bottle"></div>
+        <div class="mascot">
+          <!-- มาสคอตต้นอ้อยน้อย -->
+          <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+            <g fill="none" stroke="#155d3a" stroke-width="2" stroke-linecap="round">
+              <path d="M32 44c0 6-4 10-4 10h8s-4-4-4-10Z" fill="#fff"/>
+              <path d="M32 44V20"/>
+              <path d="M32 20c6-6 12-8 16-8-2 4-6 10-16 12"/>
+              <path d="M32 20c-6-6-12-8-16-8 2 4 6 10 16 12"/>
+              <circle cx="26" cy="30" r="1.8" fill="#155d3a" stroke="none"/>
+              <circle cx="38" cy="30" r="1.8" fill="#155d3a" stroke="none"/>
+              <path d="M28 35c2 2 6 2 8 0"/>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUE PROPS -->
+  <section id="value" aria-label="ทำไมต้องสดฉ่ำ">
+    <div class="container">
+      <h2>ทำไมต้อง “สดฉ่ำ”</h2>
+      <p class="sub">การ์ดไอคอนสั้นๆ ชัดเจนภายใน 3 วิ</p>
+      <div class="cards">
+        <div class="card">
+          <div class="icon">🍃</div>
+          <b>สดแท้ 100%</b>
+          <div>คั้นจริง ไม่ผสม</div>
+        </div>
+        <div class="card">
+          <div class="icon">🏡</div>
+          <b>จากไร่ครอบครัว จ.เลย</b>
+          <div>วัตถุดิบมีเรื่องราว</div>
+        </div>
+        <div class="card">
+          <div class="icon">🚫</div>
+          <b>ไม่แต่งกลิ่น/สี</b>
+          <div>มั่นใจธรรมชาติ</div>
+        </div>
+        <div class="card">
+          <div class="icon">😌</div>
+          <b>หวานพอดี</b>
+          <div>ดื่มง่ายทุกวัน</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section id="products" aria-label="เมนูและขนาด">
+    <div class="container">
+      <h2>เมนู / ขนาด / แพ็กเกจ</h2>
+      <p class="sub">มินิมอล สะอาด ทันสมัย – เลือกไซซ์และรสชาติได้</p>
+      <div class="product-grid">
+        <!-- 250 ml -->
+        <article class="product" data-sku="classic-250">
+          <div class="thumb" aria-hidden="true">
+            <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+              <rect x="40" y="18" width="40" height="12" rx="4" fill="#e1efe8"/>
+              <rect x="36" y="30" width="48" height="70" rx="10" fill="#ffffff" stroke="#cfe9db"/>
+              <text x="60" y="72" text-anchor="middle" font-size="12" fill="#1d5b3a" font-weight="800">250 ml</text>
+            </svg>
+          </div>
+          <div class="body">
+            <b>Classic Cane Juice 250</b>
+            <div class="price">กำลังสำรวจราคา</div>
+            <div class="options">
+              <label>รสชาติ 
+                <select name="flavor">
+                  <option value="classic">คลาสสิก</option>
+                  <option value="lime">+ มะนาว</option>
+                  <option value="ginger">+ ขิง</option>
+                </select>
+              </label>
+              <label>รอบคั้น 
+                <select name="round">
+                  <option value="next">พรีออเดอร์รอบถัดไป</option>
+                  <option value="morning">รอบเช้า</option>
+                  <option value="evening">รอบเย็น</option>
+                </select>
+              </label>
+            </div>
+            <div class="actions">
+              <button class="btn add" data-add>หยิบใส่ตะกร้า</button>
+              <button class="btn" data-preorder>พรีออเดอร์รอบคั้น</button>
+            </div>
+            <div class="note">เก็บแช่เย็น • เขย่าก่อนดื่ม</div>
+          </div>
+        </article>
+        <!-- 350 ml -->
+        <article class="product" data-sku="classic-350">
+          <div class="thumb" aria-hidden="true">
+            <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+              <rect x="40" y="18" width="40" height="12" rx="4" fill="#e1efe8"/>
+              <rect x="34" y="30" width="52" height="80" rx="12" fill="#ffffff" stroke="#cfe9db"/>
+              <text x="60" y="76" text-anchor="middle" font-size="12" fill="#1d5b3a" font-weight="800">350 ml</text>
+            </svg>
+          </div>
+          <div class="body">
+            <b>Classic Cane Juice 350</b>
+            <div class="price">กำลังสำรวจราคา</div>
+            <div class="options">
+              <label>รสชาติ 
+                <select name="flavor">
+                  <option value="classic">คลาสสิก</option>
+                  <option value="lime">+ มะนาว</option>
+                  <option value="ginger">+ ขิง</option>
+                </select>
+              </label>
+              <label>รอบคั้น 
+                <select name="round">
+                  <option value="next">พรีออเดอร์รอบถัดไป</option>
+                  <option value="morning">รอบเช้า</option>
+                  <option value="evening">รอบเย็น</option>
+                </select>
+              </label>
+            </div>
+            <div class="actions">
+              <button class="btn add" data-add>หยิบใส่ตะกร้า</button>
+              <button class="btn" data-preorder>พรีออเดอร์รอบคั้น</button>
+            </div>
+            <div class="note">เก็บแช่เย็น • เขย่าก่อนดื่ม</div>
+          </div>
+        </article>
+        <!-- 500 ml -->
+        <article class="product" data-sku="classic-500">
+          <div class="thumb" aria-hidden="true">
+            <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+              <rect x="40" y="18" width="40" height="12" rx="4" fill="#e1efe8"/>
+              <rect x="30" y="30" width="60" height="84" rx="14" fill="#ffffff" stroke="#cfe9db"/>
+              <text x="60" y="78" text-anchor="middle" font-size="12" fill="#1d5b3a" font-weight="800">500 ml</text>
+            </svg>
+          </div>
+          <div class="body">
+            <b>Classic Cane Juice 500</b>
+            <div class="price">กำลังสำรวจราคา</div>
+            <div class="options">
+              <label>รสชาติ 
+                <select name="flavor">
+                  <option value="classic">คลาสสิก</option>
+                  <option value="lime">+ มะนาว</option>
+                  <option value="ginger">+ ขิง</option>
+                </select>
+              </label>
+              <label>รอบคั้น 
+                <select name="round">
+                  <option value="next">พรีออเดอร์รอบถัดไป</option>
+                  <option value="morning">รอบเช้า</option>
+                  <option value="evening">รอบเย็น</option>
+                </select>
+              </label>
+            </div>
+            <div class="actions">
+              <button class="btn add" data-add>หยิบใส่ตะกร้า</button>
+              <button class="btn" data-preorder>พรีออเดอร์รอบคั้น</button>
+            </div>
+            <div class="note">เก็บแช่เย็น • เขย่าก่อนดื่ม</div>
+          </div>
+        </article>
+      </div>
+      <p class="note">* หากยังไม่เปิดขายจริง ปุ่ม “หยิบใส่ตะกร้า” จะพาไปฟอร์มรอรอบคั้น</p>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section id="process" aria-label="ขั้นตอนความสด">
+    <div class="container">
+      <h2>From Farm to Bottle</h2>
+      <p class="sub">เรา “คั้นเพื่อความสด” ไม่ใช่เพื่อสต็อก</p>
+      <div class="steps">
+        <div class="step">
+          <span class="num">1</span>
+          <b>ปลูกอ้อย • ไม่พึ่งสารเคมี</b>
+          <div>เลือกพันธุ์ดี ดูแลดินและน้ำอย่างใส่ใจ</div>
+        </div>
+        <div class="step">
+          <span class="num">2</span>
+          <b>คัดสดจากแปลง</b>
+          <div>เลือกอ้อยอายุเหมาะสม ความหวานพอดี</div>
+        </div>
+        <div class="step">
+          <span class="num">3</span>
+          <b>คั้นทันที</b>
+          <div>สะอาด ตามมาตรฐานสุขอนามัย</div>
+        </div>
+        <div class="step">
+          <span class="num">4</span>
+          <b>บรรจุสะอาด</b>
+          <div>ปิดฝาแน่น พร้อมส่งถึงมือคุณ</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STORY -->
+  <section id="story" aria-label="SODCHAM Story">
+    <div class="container story">
+      <div>
+        <h2>SODCHAM – เรื่องเล่าจากหยดน้ำอ้อย</h2>
+        <p class="sub">เริ่มจากไร่อ้อยเล็กๆ ของครอบครัวในเลย เราอยากให้คนเมืองได้ดื่มความสดแท้ 100% ที่ทั้งอร่อยและจริงใจกับแหล่งที่มา</p>
+        <div class="hero-ctas">
+          <a class="cta-secondary" href="#about" data-open-modal>รู้จักเรามากขึ้น</a>
+        </div>
+      </div>
+      <div class="panel" aria-hidden="true">
+        <!-- แผงภาพสตอรี่/มาสคอต -->
+        <svg viewBox="0 0 480 260" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="g" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0" stop-color="#eafff0"/>
+              <stop offset="1" stop-color="#ffffff"/>
+            </linearGradient>
+          </defs>
+          <rect x="0" y="0" width="480" height="260" fill="url(#g)" stroke="#e1efe8"/>
+          <g transform="translate(40,60)" fill="#79df9d" stroke="#1d5b3a" stroke-width="2">
+            <rect x="0" y="40" width="80" height="60" rx="8" fill="#fff"/>
+            <rect x="100" y="10" width="80" height="90" rx="10" fill="#fff"/>
+            <rect x="200" y="0" width="80" height="110" rx="12" fill="#fff"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOCIAL PROOF -->
+  <section id="reviews" aria-label="รีวิวลูกค้า">
+    <div class="container">
+      <h2>รีวิวจากคนดื่มจริง</h2>
+      <p class="sub">สด ชื่น หวานพอดี — แชร์ง่ายทั้งวัน</p>
+      <div class="carousel">
+        <div class="carousel-track" id="carousel-track">
+          <div class="review"><div class="stars">★★★★★</div><b>@ployfit</b><div>หลังออกกำลังกายคือสวรรค์ หวานแบบธรรมชาติ ไม่แสบคอ</div></div>
+          <div class="review"><div class="stars">★★★★★</div><b>@bossdrive</b><div>ขับรถยาวๆ เติมเฟรชแทนกาแฟ ชอบขวดพกง่าย</div></div>
+          <div class="review"><div class="stars">★★★★☆</div><b>@mintoffice</b><div>ประชุมยาวทั้งวัน ยังสดชื่นอยู่ รสคลาสสิกคือที่สุด</div></div>
+          <div class="review"><div class="stars">★★★★★</div><b>@aanparty</b><div>งานอีเวนต์สั่งยกลัง ทีมงานปลื้มมาก</div></div>
+        </div>
+      </div>
+      <div class="hero-ctas" style="margin-top:12px"><a class="cta-secondary" href="#order">ดูรีวิวทั้งหมด</a></div>
+    </div>
+  </section>
+
+  <!-- PROMO & BUNDLES -->
+  <section id="promo" aria-label="โปรวันนี้">
+    <div class="container promo">
+      <div class="panel">
+        <h2>โปรวันนี้ / เซ็ตคุ้ม</h2>
+        <ul>
+          <li>เซ็ต 6 ขวด – ลด <b>20%</b></li>
+          <li>สั่งก่อน 12:00 – <b>ส่งภายในวัน</b> (ในพื้นที่ให้บริการ)</li>
+        </ul>
+        <div class="countdown" aria-label="นับถอยหลังโปร">
+          <div class="cd-box"><b id="cd-d">0</b><div>วัน</div></div>
+          <div class="cd-box"><b id="cd-h">0</b><div>ชั่วโมง</div></div>
+          <div class="cd-box"><b id="cd-m">0</b><div>นาที</div></div>
+          <div class="cd-box"><b id="cd-s">0</b><div>วินาที</div></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h3>คำแนะนำการดื่ม</h3>
+        <p class="sub">เก็บแช่เย็น 0–4°C • เขย่าก่อนดื่ม • ควรดื่มภายใน 1–2 วันหลังคั้น</p>
+        <p>ทริค: แช่ขวด 10 นาทีในน้ำแข็งก่อนเสิร์ฟ ความสดจะพุ่งสุด!</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- USE CASES -->
+  <section id="usecases" aria-label="ดื่มตอนไหนก็ใช่">
+    <div class="container">
+      <h2>ดื่มตอนไหนก็ใช่</h2>
+      <div class="usegrid">
+        <div class="use"><b>หลังออกกำลังกาย</b><div>รีเฟรชเร็ว ได้ความหวานธรรมชาติ</div></div>
+        <div class="use"><b>ประชุมยาว</b><div>เติมสดชื่นแบบไม่ง่วง</div></div>
+        <div class="use"><b>ขับรถไกล</b><div>สดชื่นต่อเนื่อง พกง่าย</div></div>
+        <div class="use"><b>จัดเลี้ยง/ออกบูธ</b><div>แพ็กสวย เสิร์ฟง่าย</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- B2B / EVENTS -->
+  <section id="b2b" aria-label="สั่งยกลังสำหรับงาน">
+    <div class="container b2b">
+      <div>
+        <h2>สั่งยกลังสำหรับงาน / ออฟฟิศ</h2>
+        <p class="sub">ส่วนลดปริมาณมาก • ปรับสติกเกอร์โลโก้ร่วมได้</p>
+        <ul>
+          <li>ขั้นต่ำ 2 ลัง (24–48 ขวด) – ส่วนลดพิเศษ</li>
+          <li>รอบคั้นตามนัดหมาย • ส่งตรงถึงสถานที่</li>
+        </ul>
+      </div>
+      <div>
+        <form id="b2b-form">
+          <div class="row">
+            <input name="company" placeholder="ชื่อบริษัท / ผู้ติดต่อ" required />
+            <input name="phone" placeholder="เบอร์โทร / ไลน์" required />
+          </div>
+          <div class="row">
+            <input name="qty" placeholder="ปริมาณที่ต้องการ (เช่น 48 ขวด)" />
+            <input name="date" type="date" />
+          </div>
+          <textarea name="note" placeholder="รายละเอียดเพิ่มเติม (สถานที่ / เวลา / ความต้องการพิเศษ)"></textarea>
+          <div class="hero-ctas">
+            <button class="cta-primary" type="submit">ขอใบเสนอราคา</button>
+            <a class="cta-secondary" href="#order">คุยกับเรา</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ORDER & CONTACT -->
+  <section id="order" aria-label="วิธีสั่งซื้อและติดต่อ">
+    <div class="container">
+      <h2>สั่งง่ายได้หลายช่องทาง</h2>
+      <div class="order-actions">
+        <a class="primary" href="#products">สั่งผ่านเว็บไซต์</a>
+        <a class="line" href="https://line.me/R/ti/p/~YOUR_LINE_ID" target="_blank" rel="noopener">แชทไลน์</a>
+        <a class="phone" href="tel:+66-80-000-0000">โทรหาเรา</a>
+      </div>
+      <p class="sub">พื้นที่จัดส่งหลัก: (แก้ไขเป็นพื้นที่บริการของคุณ) • ค่าจัดส่งตามระยะทาง</p>
+      <iframe class="map" loading="lazy" src="https://maps.google.com/maps?q=Khon%20Kaen&t=&z=10&ie=UTF8&iwloc=&output=embed" title="แผนที่จุดรับ/ส่ง"></iframe>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" aria-label="คำถามที่พบบ่อย">
+    <div class="container">
+      <h2>FAQ</h2>
+      <details>
+        <summary>เก็บได้นานแค่ไหน ต้องแช่เย็นไหม?</summary>
+        <div>ควรแช่เย็น 0–4°C และดื่มภายใน 1–2 วันหลังคั้นเพื่อรสชาติที่ดีที่สุด</div>
+      </details>
+      <details>
+        <summary>มีการแต่งกลิ่น/แต่งสีไหม?</summary>
+        <div>ไม่แต่งกลิ่น ไม่แต่งสี — ความหวานมาจากอ้อยแท้ 100%</div>
+      </details>
+      <details>
+        <summary>มีรอบคั้นกี่โมง ส่งวันไหนบ้าง?</summary>
+        <div>มีรอบเช้าและรอบเย็น (ขึ้นกับปริมาณพรีออเดอร์) แจ้งยืนยันอีกครั้งทางไลน์</div>
+      </details>
+      <details>
+        <summary>สั่งจำนวนมากคิดราคายังไง?</summary>
+        <div>ติดต่อผ่านแบบฟอร์ม B2B เพื่อรับใบเสนอราคาพิเศษตามปริมาณ</div>
+      </details>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container" role="contentinfo">
+      <div style="display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap">
+        <div>
+          <b>สดฉ่ำ SODCHAM</b>
+          <div>จากไร่สู่ขวด – น้ำอ้อยคั้นสดแท้ 100%</div>
+          <div>© <span id="year"></span> SODCHAM. All rights reserved.</div>
+        </div>
+        <div style="display:flex;gap:14px;align-items:center">
+          <a href="#">นโยบายความเป็นส่วนตัว</a>
+          <a href="#">เงื่อนไขการใช้งาน</a>
+          <a href="#">ลิขสิทธิ์</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- About Modal -->
+  <dialog id="about-modal" style="border:none;border-radius:16px;max-width:720px;width:92%;padding:0;">
+    <div style="padding:20px;border:1px solid #e6f2ec;border-radius:16px;background:#fff">
+      <h3>รู้จัก SODCHAM มากขึ้น</h3>
+      <p>เราเกิดจากครอบครัวชาวไร่อ้อยในจังหวัดเลยที่อยากชวนทุกคนดื่มความสดแท้แบบที่เราดื่มกันที่บ้าน—ซื่อสัตย์กับธรรมชาติและแหล่งที่มา ทุกขวดคั้นวันต่อวัน ใส่ใจความสะอาด และพร้อมส่งถึงคุณ</p>
+      <div class="hero-ctas"><button class="cta-secondary" data-close-modal>ปิด</button></div>
+    </div>
+  </dialog>
+
+  <!-- Schema.org (LocalBusiness + Product) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "สดฉ่ำ SODCHAM",
+    "description": "น้ำอ้อยคั้นสดแท้ 100% จากไร่สู่ขวด ไม่แต่งกลิ่น ไม่แต่งสี คั้นวันต่อวัน",
+    "telephone": "+66-80-000-0000",
+    "areaServed": "TH",
+    "sameAs": ["https://line.me/"],
+    "brand": {"@type":"Brand","name":"SODCHAM"}
+  }
+  </script>
+
+  <script>
+    // === Config ===
+    const PREORDER_ONLY = true;   // ยังไม่ผลิตจริง ให้ true แล้วปุ่ม Add to Cart จะพาไปพรีออเดอร์/ไลน์
+
+    // Simple analytics stub
+    function track(event, data={}){ try { console.log("event:", event, data); } catch(e){} }
+
+    // Smooth scroll for in-page anchors
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click',e=>{
+        const id = a.getAttribute('href');
+        if(id.length>1){
+          const el = document.querySelector(id);
+          if(el){ e.preventDefault(); el.scrollIntoView({behavior:'smooth',block:'start'}); }
+        }
+      });
+    });
+
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Carousel auto-scroll
+    const trackEl = document.getElementById('carousel-track');
+    setInterval(()=>{ if(!trackEl) return; trackEl.scrollBy({left:320,behavior:'smooth'}); if(trackEl.scrollLeft + trackEl.clientWidth >= trackEl.scrollWidth-4){ trackEl.scrollTo({left:0,behavior:'smooth'}); } }, 2800);
+
+    // Countdown (7 days from load)
+    const endAt = Date.now() + 7*24*60*60*1000;
+    const pad = n=> String(n).padStart(2,'0');
+    const timer = setInterval(()=>{
+      const dd = Math.max(0, endAt - Date.now());
+      const s = Math.floor(dd/1000);
+      const d = Math.floor(s/86400);
+      const h = Math.floor((s%86400)/3600);
+      const m = Math.floor((s%3600)/60);
+      const r = s%60;
+      const set = (id,val)=>{const el=document.getElementById(id); if(el) el.textContent = pad(val)}
+      set('cd-d', d); set('cd-h', h); set('cd-m', m); set('cd-s', r);
+      if(dd<=0) clearInterval(timer);
+    }, 1000);
+
+    // Modal
+    const modal = document.getElementById('about-modal');
+    document.querySelectorAll('[data-open-modal]').forEach(btn=>btn.addEventListener('click', ()=>modal.showModal()));
+    document.querySelectorAll('[data-close-modal]').forEach(btn=>btn.addEventListener('click', ()=>modal.close()));
+
+    // Add to Cart / Preorder behavior
+    const toWaitlist = ()=>{
+      // ไปที่ไลน์หรือฟอร์มรอรอบคั้น (แก้ลิงก์ที่นี่)
+      location.href = 'https://line.me/R/ti/p/~YOUR_LINE_ID';
+    }
+    document.querySelectorAll('[data-add]').forEach(btn=>{
+      btn.addEventListener('click', (e)=>{
+        const card = e.currentTarget.closest('.product');
+        const sku = card?.dataset?.sku;
+        const selects = card.querySelectorAll('select');
+        const data = {sku}; selects.forEach(s=> data[s.name] = s.value);
+        if(PREORDER_ONLY){ toWaitlist(); return; }
+        const cart = JSON.parse(localStorage.getItem('cart')||'[]');
+        cart.push({...data, qty:1, addedAt: Date.now()});
+        localStorage.setItem('cart', JSON.stringify(cart));
+        alert('เพิ่มลงตะกร้าแล้ว!');
+        track('add_to_cart', data);
+      });
+    });
+    document.querySelectorAll('[data-preorder]').forEach(btn=>btn.addEventListener('click', toWaitlist));
+
+    // B2B form
+    document.getElementById('b2b-form').addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const form = new FormData(e.currentTarget);
+      const payload = Object.fromEntries(form.entries());
+      track('b2b_request', payload);
+      alert('เราได้รับคำขอใบเสนอราคาแล้ว จะติดต่อกลับโดยเร็ว');
+      // TODO: เชื่อม Google Forms หรือส่งไปยัง backend ของคุณ
+      e.currentTarget.reset();
+    });
+  </script>
+</body>
+</html>
